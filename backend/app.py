@@ -20,6 +20,11 @@ except Exception as e:
 # ---------------------------------------------------------
 # API Endpoint 1: ஓட்டு போடுவதற்கான ரூட் (POST Request)
 # ---------------------------------------------------------
+
+@app.route('/', methods=['GET'])
+def home():
+    return "EVM Backend Server is Live and Running Successfully! 🚀"
+
 @app.route('/api/vote', methods=['POST'])
 def cast_vote():
     try:
