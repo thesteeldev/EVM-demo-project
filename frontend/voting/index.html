@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVM - மின்னணு வாக்குப்பதிவு இயந்திரம்</title>
+
+    <!-- Google Fonts: Noto Sans Tamil for Tamil script rendering -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ==================== ANIMATED BACKGROUND SHAPES ==================== -->
+    <div class="bg-shapes" aria-hidden="true">
+        <div class="bg-shape bg-shape--1"></div>
+        <div class="bg-shape bg-shape--2"></div>
+        <div class="bg-shape bg-shape--3"></div>
+        <div class="bg-shape bg-shape--4"></div>
+        <div class="bg-shape bg-shape--5"></div>
+        <div class="bg-shape bg-shape--6"></div>
+    </div>
+
+    <!-- ==================== MAIN CONTAINER ==================== -->
+    <div class="app-container">
+
+        <!-- ========== HEADER ========== -->
+        <header class="header glass-panel">
+            <div class="header__content">
+                <div class="header__icon-wrapper">
+                    <i class="fa-solid fa-clipboard-check header__icon"></i>
+                </div>
+                <div class="header__text">
+                    <h1 class="header__title">மின்னணு வாக்குப்பதிவு இயந்திரம்</h1>
+                    <span class="header__subtitle">EVM</span>
+                </div>
+            </div>
+            <div class="header__badge">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>பாதுகாப்பானது</span>
+            </div>
+        </header>
+
+        <!-- ========== LOGIN SECTION ========== -->
+        <section class="login-section glass-panel" id="loginSection" aria-labelledby="loginTitle">
+            <div class="login-section__icon-ring">
+                <i class="fa-solid fa-shield-user login-section__shield-icon"></i>
+            </div>
+            <h2 class="login-section__title" id="loginTitle">வாக்காளர் உள்நுழைவு</h2>
+
+            <div class="login-section__input-group">
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-user input-wrapper__icon"></i>
+                    <input
+                    type="text"
+                    id="voterIdInput"
+                    class="input-wrapper__field"
+                    placeholder="உங்கள் வாக்காளர் அடையாள எண்ணை உள்ளிடவும்"
+                    aria-label="வாக்காளர் அடையாள எண்"
+                    autocomplete="off"
+                    >
+                </div>
+                <button class="btn btn--primary btn--glow" id="btnContinue" type="button">
+                    <span class="btn__text">தொடரவும்</span>
+                    <i class="fa-solid fa-arrow-right btn__arrow"></i>
+                </button>
+            </div>
+
+            <p class="login-section__footer-text">
+                <i class="fa-solid fa-lock login-section__lock-icon"></i>
+                உங்கள் தகவல்கள் பாதுகாப்பாக பாதுகாக்கப்படும்
+            </p>
+        </section>
+
+        <!-- ========== CANDIDATES SECTION (Initially blurred/inactive) ========== -->
+        <section class="candidates-section glass-panel candidates-section--inactive" id="candidatesSection" aria-labelledby="candidatesTitle">
+            <h2 class="candidates-section__title" id="candidatesTitle">
+                <i class="fa-solid fa-list-ul candidates-section__title-icon"></i>
+                வேட்பாளர்கள்
+            </h2>
+
+            <div class="candidates-grid">
+                <!-- Candidate Card 1 -->
+                <div class="candidate-card glass-panel" data-candidate-id="candidate_1">
+                    <div class="candidate-card__image-wrapper">
+                        <div class="candidate-card__avatar">
+                            <i class="fa-solid fa-user candidate-card__avatar-icon"></i>
+                        </div>
+                    </div>
+                    <h3 class="candidate-card__name">திரு. அருண் குமார்</h3>
+                    <p class="candidate-card__party">மக்கள் முன்னேற்றக் கட்சி</p>
+                    <span class="candidate-card__symbol" aria-label="கட்சி சின்னம்">🍃</span>
+                    <button class="btn btn--outline btn--vote" data-candidate-id="candidate_1" type="button">
+                        <i class="fa-solid fa-check-to-slot"></i>
+                        வாக்களிக்க
+                    </button>
+                </div>
+
+                <!-- Candidate Card 2 -->
+                <div class="candidate-card glass-panel" data-candidate-id="candidate_2">
+                    <div class="candidate-card__image-wrapper">
+                        <div class="candidate-card__avatar candidate-card__avatar--female">
+                            <i class="fa-solid fa-user candidate-card__avatar-icon"></i>
+                        </div>
+                    </div>
+                    <h3 class="candidate-card__name">திருமதி. காவ்யா ஸ்ரீ</h3>
+                    <p class="candidate-card__party">சூரிய ஒளி கட்சி</p>
+                    <span class="candidate-card__symbol" aria-label="கட்சி சின்னம்">☀️</span>
+                    <button class="btn btn--outline btn--vote" data-candidate-id="candidate_2" type="button">
+                        <i class="fa-solid fa-check-to-slot"></i>
+                        வாக்களிக்க
+                    </button>
+                </div>
+
+                <!-- Candidate Card 3 -->
+                <div class="candidate-card glass-panel" data-candidate-id="candidate_3">
+                    <div class="candidate-card__image-wrapper">
+                        <div class="candidate-card__avatar candidate-card__avatar--alt">
+                            <i class="fa-solid fa-user candidate-card__avatar-icon"></i>
+                        </div>
+                    </div>
+                    <h3 class="candidate-card__name">திரு. முத்துக்குமார்</h3>
+                    <p class="candidate-card__party">தேசிய மாம்பழ கட்சி</p>
+                    <span class="candidate-card__symbol" aria-label="கட்சி சின்னம்">🥭</span>
+                    <button class="btn btn--outline btn--vote" data-candidate-id="candidate_3" type="button">
+                        <i class="fa-solid fa-check-to-slot"></i>
+                        வாக்களிக்க
+                    </button>
+                </div>
+
+                <!-- Candidate Card 4 -->
+                <div class="candidate-card glass-panel" data-candidate-id="candidate_4">
+                    <div class="candidate-card__image-wrapper">
+                        <div class="candidate-card__avatar candidate-card__avatar--gem">
+                            <i class="fa-solid fa-user candidate-card__avatar-icon"></i>
+                        </div>
+                    </div>
+                    <h3 class="candidate-card__name">திருமதி. தீபிகா ராணி</h3>
+                    <p class="candidate-card__party">வைர முன்னேற்றக் கட்சி</p>
+                    <span class="candidate-card__symbol" aria-label="கட்சி சின்னம்">💎</span>
+                    <button class="btn btn--outline btn--vote" data-candidate-id="candidate_4" type="button">
+                        <i class="fa-solid fa-check-to-slot"></i>
+                        வாக்களிக்க
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ==================== CONFIRMATION MODAL (Hidden by default) ==================== -->
+    <div class="modal-overlay" id="confirmationModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-popup glass-panel">
+            <div class="modal-popup__icon-ring">
+                <i class="fa-solid fa-question modal-popup__question-icon"></i>
+            </div>
+
+            <h2 class="modal-popup__title" id="modalTitle">உங்கள் வாக்கை உறுதிப்படுத்த விரும்புகிறீர்களா?</h2>
+
+            <div class="modal-popup__actions">
+                <button class="btn btn--primary btn--glow" id="btnConfirmYes" type="button">
+                    ✔️ ஆம்
+                </button>
+                <button class="btn btn--dark-outline" id="btnConfirmNo" type="button">
+                    ❌ இல்லை
+                </button>
+            </div>
+
+            <p class="modal-popup__footer-text">
+                <i class="fa-solid fa-lock modal-popup__lock-icon"></i>
+                உங்கள் வாக்கு ரகசியமாக பாதுகாக்கப்படும்
+            </p>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST NOTIFICATION CONTAINER ==================== -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

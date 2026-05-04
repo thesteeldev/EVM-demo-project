@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVM முடிவுகள் | நேரலை டேஷ்போர்டு</title>
+
+    <!-- Google Fonts: Noto Sans Tamil -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="result.css">
+</head>
+<body>
+
+    <!-- ==================== ANIMATED BACKGROUND ==================== -->
+    <div class="bg-particles" aria-hidden="true"></div>
+
+    <!-- ==================== MAIN DASHBOARD LAYOUT ==================== -->
+    <div class="dashboard">
+
+        <!-- ========== SIDEBAR ========== -->
+        <aside class="sidebar glass-panel">
+            <div class="sidebar__logo">
+                <i class="fa-solid fa-check-to-slot sidebar__logo-icon"></i>
+                <div class="sidebar__logo-text">
+                    <span class="sidebar__title">மின்னணு வாக்குப்பதிவு இயந்திரம்</span>
+                    <span class="sidebar__subtitle">EVM SYSTEM</span>
+                </div>
+            </div>
+
+            <nav class="sidebar__nav">
+                <ul>
+                    <li class="nav-item nav-item--active">
+                        <i class="fa-solid fa-chart-pie nav-item__icon"></i>
+                        <span>முடிவுகள்</span>
+                        <div class="nav-item__indicator"></div>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fa-solid fa-chart-line nav-item__icon"></i>
+                        <span>நேரலை வரைபடம்</span>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fa-solid fa-percent nav-item__icon"></i>
+                        <span>வாக்கு சதவீதம்</span>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fa-solid fa-map-location-dot nav-item__icon"></i>
+                        <span>மாவட்ட வாரியாக</span>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fa-solid fa-circle-info nav-item__icon"></i>
+                        <span>தகவல் மையம்</span>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fa-solid fa-gear nav-item__icon"></i>
+                        <span>அமைப்புகள்</span>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar__update">
+                <div class="update-indicator">
+                    <span class="blinking-dot"></span>
+                    <span>கடைசி புதுப்பிப்பு</span>
+                </div>
+                <p class="update-time" id="last-update-time">--:--:--</p>
+                <p class="update-date" id="last-update-date">---</p>
+            </div>
+        </aside>
+
+        <!-- ========== MAIN CONTENT ========== -->
+        <main class="main-content">
+
+            <!-- Header -->
+            <header class="dashboard-header glass-panel">
+                <h1 class="header-title">தேர்தல் முடிவுகள் - நேரலை டேஷ்போர்டு</h1>
+                <div class="live-badge">
+                    <span class="blinking-dot live-dot"></span>
+                    <span>நேரலை</span>
+                </div>
+            </header>
+
+            <!-- Top Stats Row -->
+            <div class="stats-row">
+                <!-- Card 1: Total Votes -->
+                <div class="stat-card glass-panel">
+                    <div class="stat-card__icon-box">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <div class="stat-card__info">
+                        <span class="stat-card__label">மொத்த வாக்குகள்</span>
+                        <span class="stat-card__value" id="total-votes">0</span>
+                        <span class="stat-card__sub">மொத்தம் பதிவான வாக்குகள்</span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Leading Candidate -->
+                <div class="stat-card stat-card--leading glass-panel">
+                    <div class="stat-card__icon-box">
+                        <i class="fa-solid fa-crown crown-icon"></i>
+                    </div>
+                    <div class="stat-card__profile">
+                        <div class="candidate-avatar" id="leading-avatar">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div class="candidate-info">
+                            <span class="candidate-name" id="leading-name">---</span>
+                            <span class="candidate-party" id="leading-party">---</span>
+                        </div>
+                    </div>
+                    <div class="stat-card__votes">
+                        <span class="stat-card__value" id="leading-votes">0</span>
+                        <span class="stat-card__sub">முன்னணி வாக்குகள்</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Vote Percentage -->
+                <div class="stat-card glass-panel">
+                    <div class="stat-card__circular">
+                        <svg viewBox="0 0 140 140" class="circular-chart">
+                            <circle class="circular-bg" cx="70" cy="70" r="58"></circle>
+                            <circle class="circular-progress" cx="70" cy="70" r="58" stroke-dasharray="364.4" stroke-dashoffset="78.4" id="percentage-circle"></circle>
+                        </svg>
+                        <div class="percentage-text">
+                            <span class="percentage-value" id="percentage-display">78.5%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card__side-stats">
+                        <div class="side-stat">
+                            <span class="side-stat__label">மொத்த பதிவு</span>
+                            <span class="side-stat__number" id="voted-count">42,580</span>
+                        </div>
+                        <div class="side-stat">
+                            <span class="side-stat__label">இலக்கு</span>
+                            <span class="side-stat__number">1,00,000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="charts-row">
+                <!-- Doughnut Chart -->
+                <div class="chart-panel glass-panel">
+                    <h3 class="chart-panel__title">வாக்குகள் பகிர்வு (சதவீதம்)</h3>
+                    <div class="chart-container">
+                        <canvas id="doughnutChart"></canvas>
+                    </div>
+                    <div class="custom-legend" id="doughnut-legend"></div>
+                </div>
+
+                <!-- Bar Chart -->
+                <div class="chart-panel glass-panel">
+                    <h3 class="chart-panel__title">முக்கிய வேட்பாளர்கள் - வாக்கு நிலவரம்</h3>
+                    <div class="chart-container">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Stats Row -->
+            <div class="footer-stats">
+                <div class="footer-card glass-panel">
+                    <i class="fa-solid fa-check-to-slot footer-card__icon"></i>
+                    <span>வாக்களித்தவர்கள்</span>
+                </div>
+                <div class="footer-card glass-panel">
+                    <i class="fa-solid fa-building-columns footer-card__icon"></i>
+                    <span>மாவட்டங்கள்</span>
+                </div>
+                <div class="footer-card glass-panel">
+                    <i class="fa-solid fa-clock footer-card__icon"></i>
+                    <span>புதுப்பிப்பு இடைவெளி - 5 வினாடிகள்</span>
+                </div>
+                <div class="footer-card glass-panel">
+                    <i class="fa-solid fa-shield-halved footer-card__icon"></i>
+                    <span>தரவு பாதுகாப்பு - 100% பாதுகாப்பானது</span>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- External JavaScript -->
+    <script src="result.js"></script>
+</body>
+</html>
