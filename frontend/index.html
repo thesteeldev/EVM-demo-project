@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVM System | மின்னணு வாக்குப்பதிவு</title>
+
+    <!-- Google Fonts: Noto Sans Tamil + Inter for English -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ==================== ANIMATED BACKGROUND ==================== -->
+    <div class="bg-glow" aria-hidden="true"></div>
+
+    <!-- ==================== LOGIN MODAL (Initially visible) ==================== -->
+    <section class="login-modal glass-panel" id="loginModal" aria-labelledby="loginTitle">
+        <div class="login-modal__logo">
+            <i class="fa-solid fa-check-to-slot login-modal__icon"></i>
+            <h1 class="login-modal__title" id="loginTitle">மின்னணு வாக்குப்பதிவு இயந்திரம்</h1>
+            <p class="login-modal__subtitle">உள்நுழையவும்</p>
+        </div>
+        <button class="btn btn--google glass-panel" id="googleSignInBtn">
+            <i class="fa-brands fa-google"></i>
+            <span>Sign in with Google</span>
+        </button>
+    </section>
+
+    <!-- ==================== DASHBOARD (Hidden initially) ==================== -->
+    <main class="dashboard" id="dashboard" style="display: none;">
+        <!-- Header -->
+        <header class="dashboard-header glass-panel">
+            <div class="header-greeting">
+                <i class="fa-solid fa-circle-user header-avatar"></i>
+                <div>
+                    <span class="header-welcome">வணக்கம்,</span>
+                    <span class="header-email" id="userEmailDisplay">user@gmail.com</span>
+                </div>
+            </div>
+            <button class="btn btn--logout glass-panel" id="logoutBtn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </button>
+        </header>
+
+        <!-- Elections Grid -->
+        <section class="elections-grid">
+            <h2 class="section-title">தேர்தல்கள்</h2>
+            <div class="grid-container">
+                <!-- Card 1: Live Election -->
+                <div class="election-card glass-panel">
+                    <div class="election-card__status">
+                        <span class="badge badge--live">🟢 Live</span>
+                    </div>
+                    <div class="election-card__content">
+                        <h3 class="election-card__title">Squad 147 CR Election</h3>
+                        <p class="election-card__description">நடைபெறும் தேர்தல் - இப்போது வாக்களிக்கவும்</p>
+                    </div>
+                    <button class="btn btn--enter" data-election="squad_147" data-live="true">
+                        நுழைய <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Card 2: Upcoming Election -->
+                <div class="election-card election-card--disabled glass-panel">
+                    <div class="election-card__status">
+                        <span class="badge badge--upcoming">🟡 Upcoming</span>
+                    </div>
+                    <div class="election-card__content">
+                        <h3 class="election-card__title">College President Election</h3>
+                        <p class="election-card__time">
+                            <i class="fa-regular fa-clock"></i> 10:00 AM
+                        </p>
+                    </div>
+                    <button class="btn btn--enter" disabled>
+                        நுழைய <i class="fa-solid fa-lock"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 3: Results Link (Admin / Live Dashboard) -->
+        <div class="election-card glass-panel">
+            <div class="election-card__status">
+                <span class="badge" style="color: #5cc8ff; border-color: rgba(92,200,255,0.4); background: rgba(92,200,255,0.1);">
+                    📊 நேரலை முடிவுகள்
+                </span>
+            </div>
+            <div class="election-card__content">
+                <h3 class="election-card__title">Election Dashboard</h3>
+                <p class="election-card__description">வாக்குப்பதிவு முடிவுகளை நேரலையில் காணுங்கள்</p>
+            </div>
+            <!-- results ஃபோல்டருக்குள் இருக்கும் result.html-க்கு போகும் லிங்க் -->
+            <button class="btn btn--enter" onclick="window.location.href='results/result.html'" style="background: linear-gradient(135deg, #4b10a9, #6c22d6);">
+                முடிவுகளைப் பார் <i class="fa-solid fa-chart-pie"></i>
+            </button>
+        </div>
+    </main>
+
+    <!-- ==================== LOADING MODAL (Eligibility Check) ==================== -->
+    <div class="loading-overlay" id="loadingModal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="loading-card glass-panel">
+            <div class="spinner"></div>
+            <p class="loading-text">உங்கள் தகுதியை சரிபார்க்கிறது...</p>
+            <p class="loading-sub">Verifying Eligibility...</p>
+        </div>
+    </div>
+
+    <!-- ==================== FIREBASE SDK (App + Auth) ==================== -->
+    <!-- Using compat libraries for simplicity -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
